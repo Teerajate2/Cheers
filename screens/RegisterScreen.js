@@ -1,19 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 
-export default class LoginScreen extends React.Component {
-  
-  static navigationOptions = {
-    header: null
-  };
-  
+export default class RegisterScreen extends React.Component {
   state = {
     placename: ''
   };
-  placeNameChangedHandler = () => {
+  placeNameChangedHandler = val => {
     this.setState({
       username: '',
       password: '',
+      phone: '',
+      email: ''
     });
   };
 
@@ -29,17 +26,26 @@ export default class LoginScreen extends React.Component {
     })
   };
 
-  
+  phoneChangeHandler = val => {
+    this.setState({
+      phone: val
+    })
+  };
+
+  emailChangeHandler = val => {
+    this.setState({
+      email: val
+    })
+  };
 
   render() {
-  
     return (
 
       <View style={styles.login}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>TABLE TABLE</Text>
+          <Text style={styles.title}>Register</Text>
         </View>
-        
+
         <View style={styles.register}>
           <TextInput
             value={this.state.username}
@@ -52,31 +58,44 @@ export default class LoginScreen extends React.Component {
             value={this.state.password}
             placeholder="password"
             placeholderTextColor="#a2a2a0"
+            onChangeText={this.passwordChangeHandler}
             secureTextEntry={true}
             style={styles.textInput}
           />
-          
+          <TextInput
+            value={this.state.email}
+            placeholder="email"
+            placeholderTextColor="#a2a2a0"
+            onChangeText={this.emailChangeHandler}
+            style={styles.textInput}
+          />
+          <TextInput
+            value={this.state.phone}
+            placeholder="phone"
+            placeholderTextColor="#a2a2a0"
+            onChangeText={this.phoneChangeHandler}
+            style={styles.textInput}
+          />
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={() => this.props.navigation.navigate('Register')}
+            onPress={this.onPress}
           >
-            <Text style={styles.buttonLabel}>Log in</Text>
+            <Text style={styles.buttonLabel}>Sign Up</Text>
           </TouchableOpacity>
-         
         </View>
         <View style={styles.oauth}>
           <TouchableOpacity
             style={styles.submitButton}
             onPress={this.onPress}
           >
-            <Text style={styles.buttonLabel}>Log in with Facebook</Text>
+            <Text style={styles.buttonLabel}>Facebook</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.submitButton}
             onPress={this.onPress}
           >
-            <Text style={styles.buttonLabel}>Sign up with G-mail</Text>
+            <Text style={styles.buttonLabel}>Google</Text>
           </TouchableOpacity>
 
         </View>
@@ -87,28 +106,27 @@ export default class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
   login: {
-   
     flex: 1,
+    paddingTop: 40,
+    padding: 20,
     backgroundColor: '#3c3a3a',
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     flexDirection: "column",
   },
 
   titleContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 4,
+    flex: 0.5,
   },
 
   register: {
     flex: 4,
-    justifyContent: "flex-start",
-    flexDirection: 'column'
+    justifyContent: "space-between",
   },
 
   oauth: {
-   flex: 4,
-   marginVertical: 50
+    flex: 2,
   },
 
   title: {
@@ -125,7 +143,7 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 10,
     color: '#ffffff',
-    
+
   },
 
   submitButton: {
@@ -142,3 +160,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   }
 });
+

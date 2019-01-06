@@ -1,29 +1,23 @@
 import React from 'react';
+import { createStackNavigator, createAppContainer } from "react-navigation";
 
-import { createStackNavigator,createAppContainer } from "react-navigation";
-import Login from '/Users/teerajate2/Desktop/Cheers/components/Login.js';
-import Register from '/Users/teerajate2/Desktop/Cheers/components/Register.js';
+import {
+  LoginScreen,
+  RegisterScreen,
+} from './screens/index';
 
+const AppStackNavigator = createStackNavigator({
+  Login: LoginScreen,
+  Register: RegisterScreen
+});
+
+const AppContainer = createAppContainer(AppStackNavigator);
 export default class App extends React.Component {
-
   render() {
     return (
-       
-       <AppContainer>
-         <AppStackNavigator/>
-       </AppContainer>
-        
-
-
-      
+      <AppContainer>
+        <AppStackNavigator />
+      </AppContainer>
     );
   }
 }
-const AppStackNavigator = createStackNavigator({
-  Login: Login,
-  Register: Register
-  
-  
-});
-const AppContainer = createAppContainer(AppStackNavigator);
-
