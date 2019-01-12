@@ -1,56 +1,47 @@
+import firebase from 'firebase';
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity,Image } from 'react-native';
 
 export default class LoginScreen extends React.Component {
 
   static navigationOptions = {
     header: null
   };
+  
+  onLoginButtonPress=() =>{
+    const {email, password} = this.state;
+    firebase.auth().signInWithEmailAndPassword(email,password)
+        .then(()=>{ alert("Login is successful"); })
+        .catch(()=>{ alert('Email or password is not correct');});
+    
+}
 
-  state = {
-    placename: ''
-  };
-  placeNameChangedHandler = () => {
-    this.setState({
-      username: '',
-      password: '',
-    });
-  };
-
-  usernameChangeHandler = val => {
-    this.setState({
-      username: val
-    })
-  };
-
-  passwordChangeHandler = val => {
-    this.setState({
-      password: val
-    })
-  };
-
-
-
-  render() {
-
+  
+state = { email:'' , password:''};
+ 
+   
+   render() {
+    
     return (
 
       <View style={styles.login}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>TABLE TABLE</Text>
+          <Image style={{width: 380,height: 380}}
+          source= {require('../assets/tlogo.png')}/>
         </View>
 
         <View style={styles.register}>
           <TextInput
-            value={this.state.username}
-            placeholder="Username"
+            value={this.state.email}
+            onChangeText={str => this.setState({email : str})}
+            placeholder="Username or Email"
             placeholderTextColor="#a2a2a0"
-            onChangeText={this.usernameChangeHandler}
             style={styles.textInput}
           />
           <TextInput
             value={this.state.password}
-            placeholder="password"
+            onChangeText={str => this.setState({password : str})}
+            placeholder="Password"
             placeholderTextColor="#a2a2a0"
             secureTextEntry={true}
             style={styles.textInput}
@@ -58,28 +49,24 @@ export default class LoginScreen extends React.Component {
 
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={() => this.props.navigation.navigate('Register')}
+            onPress={this.onLoginButtonPress.bind(this)}
           >
             <Text style={styles.buttonLabel}>Log in</Text>
           </TouchableOpacity>
 
         </View>
-        <View style={styles.oauth}>
+          
+          <View style={styles.signUpContainer}>
+          <Text style={styles.signUpTitle}> Already have an account?</Text>
           <TouchableOpacity
-            style={styles.submitButton}
-            onPress={this.onPress}
-          >
-            <Text style={styles.buttonLabel}>Log in with Facebook</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.submitButton}
-            onPress={this.onPress}
-          >
-            <Text style={styles.buttonLabel}>Sign up with G-mail</Text>
+          onPress={() => this.props.navigation.navigate('Register')}>
+          <Text style={styles.signUpButton}>Sign up</Text>
+         
           </TouchableOpacity>
 
         </View>
+        
+      
       </View>
     );
   }
@@ -89,15 +76,17 @@ const styles = StyleSheet.create({
   login: {
 
     flex: 1,
-    backgroundColor: '#3c3a3a',
+    backgroundColor: '#061843',
     justifyContent: "flex-start",
     flexDirection: "column",
   },
 
   titleContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
     flex: 4,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    
   },
 
   register: {
@@ -106,19 +95,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
 
-  oauth: {
-    flex: 4,
-    marginVertical: 50
-  },
-
-  title: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: '#f5c031'
-  },
-
+  
   textInput: {
-    borderColor: '#f5c031',
+    borderColor: '#C3971A',
     borderWidth: 1,
     borderRadius: 25,
     margin: 15,
@@ -129,7 +108,7 @@ const styles = StyleSheet.create({
   },
 
   submitButton: {
-    backgroundColor: '#f5c031',
+    backgroundColor: '#C3971A',
     borderRadius: 25,
     padding: 10,
     margin: 15,
@@ -140,5 +119,22 @@ const styles = StyleSheet.create({
   buttonLabel: {
     fontSize: 15,
     fontWeight: 'bold',
+  },
+  
+  signUpContainer: {
+     flex: 1,
+     flexDirection: "row",
+     justifyContent: 'center',
+     alignItems: 'flex-start'
+
+  },
+  signUpTitle:{
+     fontSize: 16,
+     color: '#C3971A'
+  },
+  signUpButton:{
+     fontSize: 16,
+     color: '#ffffff'
   }
+
 });

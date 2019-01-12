@@ -1,43 +1,34 @@
+import firebase from 'firebase';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 
 export default class RegisterScreen extends React.Component {
+  
+  
+  
+  
+  onSignUpButtonPress=() =>{
+    this.setState({error:'',loading:true})
+    const {email, password} = this.state;
+    firebase.auth().createUserWithEmailAndPassword(email,password)
+    
+
+    .then(() => {
+      alert("Sign up is succesful")
+    })
+    .catch(() =>{
+      alert("Authentication failed")
+    })
+  }
   state = {
-    placename: ''
+    username: '',
+    password: '',
+    email: '',
+    phone: ''
   };
-  placeNameChangedHandler = val => {
-    this.setState({
-      username: '',
-      password: '',
-      phone: '',
-      email: ''
-    });
-  };
+  
 
-  usernameChangeHandler = val => {
-    this.setState({
-      username: val
-    })
-  };
-
-  passwordChangeHandler = val => {
-    this.setState({
-      password: val
-    })
-  };
-
-  phoneChangeHandler = val => {
-    this.setState({
-      phone: val
-    })
-  };
-
-  emailChangeHandler = val => {
-    this.setState({
-      email: val
-    })
-  };
-
+  
   render() {
     return (
 
@@ -49,36 +40,36 @@ export default class RegisterScreen extends React.Component {
         <View style={styles.register}>
           <TextInput
             value={this.state.username}
+            onChangeText={str => this.setState({username: str})}
             placeholder="Username"
             placeholderTextColor="#a2a2a0"
-            onChangeText={this.usernameChangeHandler}
             style={styles.textInput}
           />
           <TextInput
             value={this.state.password}
+            onChangeText={str => this.setState({password: str})}
             placeholder="password"
             placeholderTextColor="#a2a2a0"
-            onChangeText={this.passwordChangeHandler}
             secureTextEntry={true}
             style={styles.textInput}
           />
           <TextInput
             value={this.state.email}
+            onChangeText={str => this.setState({email: str})}
             placeholder="email"
             placeholderTextColor="#a2a2a0"
-            onChangeText={this.emailChangeHandler}
             style={styles.textInput}
           />
           <TextInput
             value={this.state.phone}
+            onChangeText={str => this.setState({phone: str})}
             placeholder="phone"
             placeholderTextColor="#a2a2a0"
-            onChangeText={this.phoneChangeHandler}
             style={styles.textInput}
           />
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={this.onPress}
+            onPress={this.onSignUpButtonPress.bind(this)}
           >
             <Text style={styles.buttonLabel}>Sign Up</Text>
           </TouchableOpacity>
@@ -109,9 +100,14 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 40,
     padding: 20,
-    backgroundColor: '#3c3a3a',
+    backgroundColor: '#061843',
     justifyContent: "space-between",
     flexDirection: "column",
+  },
+  
+  register: {
+    flex: 4,
+    justifyContent: "space-around",
   },
 
   titleContainer: {
@@ -119,35 +115,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 0.5,
   },
-
-  register: {
-    flex: 4,
-    justifyContent: "space-between",
-  },
-
-  oauth: {
-    flex: 2,
-  },
-
+  
   title: {
     fontSize: 25,
     fontWeight: 'bold',
-    color: '#f5c031'
+    color: '#C3971A'
   },
-
-  textInput: {
-    borderColor: '#f5c031',
-    borderWidth: 1,
-    borderRadius: 25,
-    margin: 15,
-    height: 40,
-    padding: 10,
-    color: '#ffffff',
-
-  },
-
+  
   submitButton: {
-    backgroundColor: '#f5c031',
+    backgroundColor: '#C3971A',
     borderRadius: 25,
     padding: 10,
     margin: 15,
@@ -158,6 +134,24 @@ const styles = StyleSheet.create({
   buttonLabel: {
     fontSize: 15,
     fontWeight: 'bold',
-  }
-});
+  },
+
+
+  oauth: {
+    flex: 2,
+  },
+
+  
+
+  textInput: {
+    borderColor: '#C3971A',
+    borderWidth: 1,
+    borderRadius: 25,
+    margin: 15,
+    height: 40,
+    padding: 10,
+    color: '#ffffff',
+
+  },
+}); 
 
