@@ -1,30 +1,32 @@
 import firebase from 'firebase';
 import React from 'react';
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createAppContainer} from "react-navigation";
 
 import {
   LoginScreen,
   RegisterScreen,
-  LocationScreen
+  EnterCodeScreen,
+  HomeScreen,
 } from './screens/index';
-
-
-
-
 
 
 
 const AppStackNavigator = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen,
-  Location: LocationScreen
+  EnterCode: EnterCodeScreen,
+  Home: HomeScreen,
+  
 });
 
 const AppContainer = createAppContainer(AppStackNavigator);
+
+
 export default class App extends React.Component {
   
   componentDidMount(){
-  const config = {
+  
+    const config = {
     apiKey: "AIzaSyDLi18-mLW4OdJNIIHZqs3z9uUMHvi_wgc",
     authDomain: "tabletableproject.firebaseapp.com",
     databaseURL: "https://tabletableproject.firebaseio.com",
@@ -32,13 +34,17 @@ export default class App extends React.Component {
     storageBucket: "tabletableproject.appspot.com",
     messagingSenderId: "52512492703"
   };
-  firebase.initializeApp(config);  
+   firebase.initializeApp(config);
+     
+
+  
 }
   render() {
     return (
     
       <AppContainer>
-        <AppStackNavigator />
+        <AppStackNavigator>
+        </AppStackNavigator> 
       </AppContainer>
            
     );

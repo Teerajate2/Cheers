@@ -2,22 +2,37 @@ import firebase from 'firebase';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity,Image } from 'react-native';
 
+
 export default class LoginScreen extends React.Component {
 
   static navigationOptions = {
     header: null
   };
-  
+  async logInFB() {
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('386755022089767', {
+        permissions: ['public_profile'],
+      });
+    if (type === 'success') {
+      const response = await fetch(
+        `https://graph.facebook.com/me?access_token=${token}`);
+      alert('login is sucessful') 
+      this.props.navigation.navigate('EnterCode')
+    }
+  }
+
   onLoginButtonPress=() =>{
     const {email, password} = this.state;
     firebase.auth().signInWithEmailAndPassword(email,password)
-        .then(()=>{ alert("Login is successful"); })
+        .then(()=>{ 
+          alert('login is sucessful') 
+          this.props.navigation.navigate('EnterCode')
+         })
         .catch(()=>{ alert('Email or password is not correct');});
     
 }
 
   
-state = { email:'' , password:''};
+state = { email:'teerajate28351@gmail.com' , password:'123456'};
  
    
    render() {
@@ -48,15 +63,25 @@ state = { email:'' , password:''};
           />
 
           <TouchableOpacity
-            style={styles.submitButton}
+            style={styles.loginButton}
             onPress={this.onLoginButtonPress.bind(this)}
           >
             <Text style={styles.buttonLabel}>Log in</Text>
           </TouchableOpacity>
 
         </View>
+
+        <View style={styles.oauthContainer}>
+        <TouchableOpacity
+            style={styles.oauthButton}
+            onPress={this.logInFB.bind(this)}
+          >
+            <Text style={styles.oauthLabel}>Log in with Facebook</Text>
+          </TouchableOpacity>
+
+        </View>
           
-          <View style={styles.signUpContainer}>
+        <View style={styles.signUpContainer}>
           <Text style={styles.signUpTitle}> Already have an account?</Text>
           <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Register')}>
@@ -90,7 +115,7 @@ const styles = StyleSheet.create({
   },
 
   register: {
-    flex: 4,
+    flex: 3,
     justifyContent: "flex-start",
     flexDirection: 'column'
   },
@@ -107,18 +132,38 @@ const styles = StyleSheet.create({
 
   },
 
-  submitButton: {
+  loginButton: {
     backgroundColor: '#C3971A',
+    color: '#ffffff',
     borderRadius: 25,
     padding: 10,
     margin: 15,
     height: 40,
     alignItems: 'center',
   },
+  
+  oauthButton: {
+    backgroundColor: '#29487D',
+    borderRadius: 25,
+    padding: 10,
+    margin: 15,
+    height: 40,
+    alignItems: 'center',
+  }, 
 
   buttonLabel: {
     fontSize: 15,
     fontWeight: 'bold',
+  },
+
+  oauthLabel: {
+    fontSize: 15,
+    color: '#ffffff'
+  },
+  
+  oauthContainer:{
+    flex: 1.5
+    
   },
   
   signUpContainer: {

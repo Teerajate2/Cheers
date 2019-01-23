@@ -1,10 +1,13 @@
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
-import LocationScreen from './LocationScreen';
+import EnterCodeScreen from './EnterCodeScreen';
+import HomeScreen from './HomeScreen';
+
 
 
 export {
   LoginScreen,
   RegisterScreen,
-  LocationScreen
+  EnterCodeScreen,
+  HomeScreen,
 }
