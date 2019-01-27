@@ -1,12 +1,13 @@
 import firebase from 'firebase';
 import React from 'react';
 import { createStackNavigator, createAppContainer} from "react-navigation";
-
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   LoginScreen,
   RegisterScreen,
   EnterCodeScreen,
   HomeScreen,
+  LiquorScreen
 } from './screens/index';
 
 
@@ -14,9 +15,22 @@ import {
 const AppStackNavigator = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen,
-  EnterCode: EnterCodeScreen,
-  Home: HomeScreen,
-  
+  EnterCode: {screen: EnterCodeScreen,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#C3971A',
+      }
+    }
+    },
+  Home: {screen: HomeScreen,
+    navigationOptions: {
+      title: "Welcome",
+      headerStyle: {
+        backgroundColor: '#C3971A'
+      },
+    },
+  },
+  Liquor: LiquorScreen  
 });
 
 const AppContainer = createAppContainer(AppStackNavigator);

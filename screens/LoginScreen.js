@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity,Image } from 'react-native';
-
+import Icon from 'react-native-vector-icons';
 
 export default class LoginScreen extends React.Component {
 
@@ -76,8 +76,8 @@ state = { email:'teerajate28351@gmail.com' , password:'123456'};
             style={styles.oauthButton}
             onPress={this.logInFB.bind(this)}
           >
-            <Text style={styles.oauthLabel}>Log in with Facebook</Text>
-          </TouchableOpacity>
+         <Text style={styles.oauthLabel}>Login with Facebook</Text>
+        </TouchableOpacity>
 
         </View>
           
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   
   oauthButton: {
-    backgroundColor: '#29487D',
+    backgroundColor: '#ffffff',
     borderRadius: 25,
     padding: 10,
     margin: 15,
@@ -158,7 +158,8 @@ const styles = StyleSheet.create({
 
   oauthLabel: {
     fontSize: 15,
-    color: '#ffffff'
+    fontWeight: 'bold',
+    color: '#29487D'
   },
   
   oauthContainer:{
